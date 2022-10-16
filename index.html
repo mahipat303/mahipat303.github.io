@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal protfolio</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="//use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+  </head>
+  <body>
+    <nav>
+        <h1 class="logo">Mahipat303</h1>
+        <ul id="sidemenu">
+          <li><a href="#header">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Skills</a></li>
+          <i class="fas fa-times" onclick="closemenu()"></i>
+        </ul>
+
+        <i class="fas fa-bars" onclick="openmenu()"></i>
+      </nav>
+    <div id="header">
+      <div class="container">
+        <!-- <nav>
+          <h1 class="logo">Mahipat303</h1>
+          <ul id="sidemenu">
+            <li><a href="#headere">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Skills</a></li>
+            <i class="fas fa-times" onclick="closemenu()"></i>
+          </ul>
+
+          <i class="fas fa-bars" onclick="openmenu()"></i>
+        </nav> -->
+        <div class="header-text">
+          <h1>Hi, I'm <span>Mahipat</span></h1>
+          <p>Java Backend Devloper</p>
+        </div>
+      </div>
+    </div>
+    <!-- // --------------------- about -->
+    <div id="about">
+      <div class="container">
+        <div class="row">
+          <div class="about-col-1">
+            <img
+              src="/images/IMG_20220527_143929-removebg-removebg-preview.jpg"
+              alt=""
+            />
+          </div>
+          <div class="about-col-2">
+            <h1 class="subtitle">About Me</h1>
+            <p>
+              Analytical and detail-oriented aspiring Java Back-end Developer.
+              Exceptionally focused and reliable Entry Level Java Developer with
+              an outstanding work ethic and integration with intuitive
+              problem-solving skills. Looking to start a career as a JAVA
+              Back-end Developer in a reputed firm driven by technology.
+            </p>
+            <div class="tab-title">
+              <p class="tab-links active-link" onclick="opentab('education')">
+                Education
+              </p>
+              <p class="tab-links" onclick="opentab('Hobies')">Hobies</p>
+            </div>
+            <div class="tab-contents active-tab" id="education">
+              <ul>
+                <li>
+                  <span> 2022 </span> <br />
+                  java backend devlopment at Masai
+                </li>
+                <li>
+                  <span> 2020 </span> <br />
+                  Bachelor of Science in Zoology at S.S.S.D.I.I.T
+                </li>
+                <li>
+                  <span> 2017 </span> <br />
+                  High School Diploma at Sorath international school
+                </li>
+              </ul>
+            </div>
+            <div class="tab-contents" id="Hobies">
+              <ul>
+                <li>
+                  <span> Music Listing </span> <br />
+                  Very much in to music
+                </li>
+                <li>
+                  <span> Cricket </span> <br />
+                  cricket player
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  var tablinks = document.getElementsByClassName("tab-links");
+  var tabcontents = document.getElementsByClassName("tab-contents");
+  function opentab(tabname) {
+    for (tablink of tablinks) {
+      tablink.classList.remove("active-link");
+    }
+    for (tabcontent of tabcontents) {
+      tabcontent.classList.remove("active-tab");
+    }
+    event.currentTarget.classList.add("active-link");
+    document.getElementById(tabname).classList.add("active-tab");
+  }
+</script>
+
+<script>
+  var sidemenu = document.getElementById("sidemenu");
+
+  var openmenu = () => {
+    sidemenu.style.right = "0";
+  };
+  var closemenu = () => {
+    sidemenu.style.right = "-200px";
+  };
+</script>
