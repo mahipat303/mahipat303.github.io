@@ -4,27 +4,40 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Personal Portfolio </title>
+    <title>Personal Portfolio</title>
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="//use.fontawesome.com/releases/v5.0.7/css/all.css"
     />
+    <link rel="stylesheet" href="/style2.css" /> 
+    <link rel="stylesheet" href="/github.css">
+    <!-- Optionally, include the theme (if you don't want to struggle to write the CSS) -->
+<!-- <link
+rel="stylesheet"
+href="https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css"
+/> -->
   </head>
   <body>
     <nav>
-        <h1 class="logo">Mahipat303</h1>
-        <ul id="sidemenu">
-          <li><a href="#header">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Skills</a></li>
-          <i class="fas fa-times" onclick="closemenu()"></i>
-        </ul>
+      <h1 class="logo">Mahipat303</h1>
+      <ul id="sidemenu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Skills</a></li>
+        <li>
+          <a
+            href="https://drive.google.com/file/d/1q6eTuJhcOw-Z-FFNQYJdgW1zKgjueh7I/view?usp=sharing"
+            >Resume</a
+          >
+        </li>
+        <i class="fas fa-times" onclick="closemenu()"></i>
+      </ul>
 
-        <i class="fas fa-bars" onclick="openmenu()"></i>
-      </nav>
+      <i class="fas fa-bars" onclick="openmenu()"></i>
+    </nav>
     <div id="header">
       <div class="container">
         <!-- <nav>
@@ -43,18 +56,152 @@
         <div class="header-text">
           <h1>Hi, I'm <span>Mahipat</span></h1>
           <p>Java Backend Devloper</p>
+          <a
+            href="https://drive.google.com/uc?export=download&id=1q6eTuJhcOw-Z-FFNQYJdgW1zKgjueh7I"
+            class="resume"
+          
+          >
+            Download resume
+          </a>
         </div>
       </div>
     </div>
+    <!-- project ---------------------------- -->
+
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-heading" data-outline="Projects">Projects</h2>
+        <div class="all-items">
+          <div class="item">
+            <div class="left">
+              <div class="pimg">
+                <img
+                  src="/images/WhatsApp Image 2022-10-22 at 6.15.42 PM.jpeg"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="right">
+              <h2 class="project-title">smatBot.com</h2>
+              <h3 class="project-sub-title">Online bot creator</h3>
+              <p class="project-desc">
+                => it has some amazing feature like you can create your own chat
+                bot. <br />
+                <br />
+                => customize desktop for every user after login.
+              </p>
+              <p class="project-desc">Tech Stack - HTML | CSS | JAVA-SCRIPT</p>
+              <div class="buttons">
+                <a
+                  href="https://github.com/mahipat303/wired-interest-36"
+                  class="primary-btn"
+                  >code</a
+                >
+                <a
+                  href="https://elaborate-vacherin-013d66.netlify.app/"
+                  class="primary-btn outline external-link"
+                >
+                  <span>Preview</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="item">
+            <div class="left">
+              <div class="pimg">
+                <img src="/images/WhatsApp Image 2022-10-22 at 6.15.42 PM.jpeg" alt="">
+              </div>
+            </div>
+            <div class="right">
+              <h2 class="project-title">Hotel Zaman Website
+              </h2>
+              <h3 class="project-sub-title">A website for hotel zaman.
+              </h3>
+              <p class="project-desc">Hotel zaman is one of the famous hotel in Chittagong. We created their website. The
+                client wanted a clean and smooth
+                design which I was able to provide at the end of the project.</p>
+              <div class="buttons">
+                <a href="#" class="primary-btn">Know More</a>
+                <a href="#" class="primary-btn outline external-link"> <span>Preview</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div> -->
+          <div class="item">
+            <div class="left">
+              <div class="pimg">
+                <img
+                  src="/images/WhatsApp Image 2022-10-22 at 6.19.53 PM.jpeg"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="right">
+              <h2 class="project-title">Zappos.com</h2>
+              <h3 class="project-sub-title">
+                clone site of a well-known E-commerce website named Zappos.
+              </h3>
+              <p class="project-desc">
+                it has some feature like Login/Logout | sorting items | add to
+                cart | checkout | filter products | cart customization
+              </p>
+              <p class="project-desc">Tech Stack - HTML | CSS | JAVA-SCRIPT</p>
+              <div class="buttons">
+                <a
+                  href="https://github.com/mahipat303/subtle-swing-119"
+                  class="primary-btn"
+                  >code</a
+                >
+                <a
+                  href="https://cool-gnome-147bd7.netlify.app/"
+                  class="primary-btn outline external-link"
+                >
+                  <span>Preview</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- end of project ------------------------------>
     <!-- // --------------------- about -->
     <div id="about">
       <div class="container">
         <div class="row">
           <div class="about-col-1">
-            <img
-              src="/images/IMG_20220527_143929-removebg-removebg-preview.jpg"
-              alt=""
-            />
+            <img src="/images/IMG_20220527_143929-removebg (1)000.png" alt="" />
           </div>
           <div class="about-col-2">
             <h1 class="subtitle">About Me</h1>
@@ -62,8 +209,9 @@
               Analytical and detail-oriented aspiring Java Back-end Developer.
               Exceptionally focused and reliable Entry Level Java Developer with
               an outstanding work ethic and integration with intuitive
-              problem-solving skills. Looking to start a career as a JAVA
-              Back-end Developer in a reputed firm driven by technology.
+              problem-solving skills.
+              <!-- Looking to start a career as a JAVA
+              Back-end Developer in a reputed firm driven by technology. -->
             </p>
             <div class="tab-title">
               <p class="tab-links active-link" onclick="opentab('education')">
@@ -130,4 +278,28 @@
   var closemenu = () => {
     sidemenu.style.right = "-200px";
   };
+
+</script>
+
+
+<script src="/swiper-bundle.min.js"></script>
+<!-- <script src="/fun.js"></script> -->
+<!-- Include the library. -->
+<script
+  src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"
+></script>
+
+
+
+<!-- Prepare a container for your calendar. -->
+<h2 id="gittitle" class="section-heading" data-outline="github-calendar">github-calendar</h2>
+<div class="calendar">
+    <!-- Loading stuff -->
+    Loading the data just for you.
+</div>
+
+<script>
+    GitHubCalendar(".calendar", "mahipat303");
+    // or enable responsive functionality
+    GitHubCalendar(".calendar", "mahipat303", { responsive: true });
 </script>
