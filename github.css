@@ -15,9 +15,9 @@
 }
 
 
-body {
+/* body { */
     /* font-family: 'Cutive Mono', monospace; */
-}
+/* } */
 
 @media(min-width:992px){.bag.fixed{width: 784px;}}
 
@@ -102,7 +102,7 @@ img.spinner {
       text-align: right;
       padding: 0 14px 10px 0;
       display: inline-block;
-      float: right;
+      /* float: right; */
   }
   
   .contrib-legend .legend {
