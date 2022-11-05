@@ -9,9 +9,10 @@ html {
   padding: 0;
   margin: 0;
 }
-html > body {
-  padding: 0;
+#main {
   margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 body {
   background: #080808;
@@ -19,7 +20,6 @@ body {
   padding: 0;
   margin: 0;
   /* position: relative; */
-
   overflow-x: hidden;
 }
 
@@ -39,7 +39,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 25px 15px 5px 15px;
+  padding: 5px 15px;
   position: sticky;
   top: 0px;
   z-index: 10;
@@ -287,9 +287,9 @@ nav .fas {
   width: 100%;
 }
 @media only screen and (max-width: 810px) {
-  nav {
+  /* nav {
     padding: 25px 15px 15px 15px;
-  }
+  } */
   #gittitle {
     font-size: 25px;
   }
@@ -379,8 +379,22 @@ nav .fas {
   #stats {
     flex-direction: column;
   }
+  body {
+    overflow-x: hidden;
+  }
+  #stats {
+    margin-top: -20px;
+  }
 }
-@media only screen and (max-width: 290px) {
+@media only screen and (max-width: 376px) {
+  #stats {
+    margin-top: -20px;
+  }
+  #header {
+    padding-bottom: 300px;
+    display: flex;
+    align-items: end;
+  }
   #skills-container {
     width: 80%;
     display: grid;
