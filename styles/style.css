@@ -9,6 +9,10 @@ html {
   padding: 0;
   margin: 0;
 }
+html > body {
+  padding: 0;
+  margin: 0;
+}
 body {
   background: #080808;
   color: #fff;
@@ -167,7 +171,9 @@ nav ul li a:hover::after {
 }
 
 /* css for contact part */
-
+#maill {
+  overflow: hidden;
+}
 .contact-left {
   flex-basis: 35%;
 }
@@ -243,29 +249,43 @@ nav .fas {
   font-size: 60px;
   margin-bottom: 15px;
 }
-#skills{
+#skills {
   padding: 10% 10px;
 }
-.skill-heading{
+.skill-heading {
   margin-bottom: 80px;
 }
-#skills-container{
+#skills-container {
+  border: white;
+  margin: auto;
   margin-top: -50px;
   margin-bottom: 80px;
   width: 90%;
-  display:grid;
-  grid-template-columns: repeat(5,1fr);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px 50px;
+  justify-content: space-between;
 }
-#skill img{
-width: 40%;
-margin-bottom: 10px;
-margin-top: 20px;
+#skill img {
+  width: 40%;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
-#skill{
- text-align: center;
+#skill {
+  text-align: center;
 }
-
+#stats {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  margin: auto;
+  width: 90%;
+  gap: 20px;
+  text-align: center;
+}
+.st img {
+  width: 100%;
+}
 @media only screen and (max-width: 810px) {
   nav {
     padding: 25px 15px 15px 15px;
@@ -350,10 +370,21 @@ margin-top: 20px;
   .contact-right {
     flex-basis: 100%;
   }
-  #skills-container{
+  #skills-container {
     width: 90%;
-    display:grid;
-    grid-template-columns: repeat(3,1fr);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px 50px;
+  }
+  #stats {
+    flex-direction: column;
+  }
+}
+@media only screen and (max-width: 290px) {
+  #skills-container {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 50px;
   }
 }

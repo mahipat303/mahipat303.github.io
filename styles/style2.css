@@ -59,9 +59,9 @@ a {
   border-radius: 50px;
 }
 #projects {
-    width: 90%;
-    margin: auto;
-  }
+  width: 90%;
+  margin: auto;
+}
 #projects {
   padding: 10rem 0;
 }
@@ -184,6 +184,9 @@ a {
     color: #ff004f;
     font-size: 1.9rem;
   }
+  .st img {
+    width: 80%;
+  }
 }
 @media only screen and (max-width: 450px) {
   #projects {
@@ -208,5 +211,17 @@ a {
   }
   #projects .item .right .project-desc {
     font-size: 14px;
+  }
+  .st img {
+    width: 80%;
+  }
+  #skills-container {
+    margin-top: -20px;
+    width: 90%;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+    /* gap: 10px 50px; */
+    margin: auto;
   }
 }
