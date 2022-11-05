@@ -243,13 +243,35 @@ nav .fas {
   font-size: 60px;
   margin-bottom: 15px;
 }
+#skills{
+  padding: 10% 10px;
+}
+.skill-heading{
+  margin-bottom: 80px;
+}
+#skills-container{
+  margin-top: -50px;
+  margin-bottom: 80px;
+  width: 90%;
+  display:grid;
+  grid-template-columns: repeat(5,1fr);
+  gap: 20px 50px;
+}
+#skill img{
+width: 40%;
+margin-bottom: 10px;
+margin-top: 20px;
+}
+#skill{
+ text-align: center;
+}
 
 @media only screen and (max-width: 810px) {
   nav {
     padding: 25px 15px 15px 15px;
   }
   #gittitle {
-    font-size: 14px;
+    font-size: 25px;
   }
   #header {
     padding-bottom: 500px;
@@ -327,5 +349,11 @@ nav .fas {
   .contact-left,
   .contact-right {
     flex-basis: 100%;
+  }
+  #skills-container{
+    width: 90%;
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px 50px;
   }
 }
