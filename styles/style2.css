@@ -19,7 +19,7 @@ a {
 }
 
 .section-heading {
-  font-size: clamp(2rem, 10vw, 8rem);
+  font-size: clamp(1rem, 10vw, 4rem);
   text-transform: uppercase;
   font-family: "Montserrat";
   letter-spacing: 0.2rem;
@@ -146,6 +146,11 @@ a {
 }
 
 @media only screen and (max-width: 768px) {
+  .about-col-1 img {
+    margin: auto;
+    width: 100%;
+    border-radius: 15px;
+  }
   #projects {
     width: 90%;
     margin: auto;
@@ -180,6 +185,11 @@ a {
   }
 }
 @media only screen and (max-width: 450px) {
+  .about-col-1 img {
+    margin: auto;
+    width: 100%;
+    border-radius: 15px;
+  }
   #projects {
     width: 90%;
     margin: auto;
