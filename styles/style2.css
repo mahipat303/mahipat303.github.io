@@ -82,7 +82,7 @@ a {
   flex: 1;
 }
 #projects .item .right {
-  margin-left: -150px;
+  /* margin-left: -150px; */
   flex: 1;
   background-color: var(--body-bg);
   padding: 10px 50px;
@@ -94,7 +94,7 @@ a {
   margin-left: 0;
 }
 #projects .item:nth-of-type(even) .left {
-  margin-left: -150px;
+  /* margin-left: -150px; */
 }
 #projects .item .left .pimg {
   height: 500px;
@@ -106,14 +106,14 @@ a {
 #projects .item .left .pimg:hover {
   z-index: 3;
 }
-#projects .item .left .pimg::after {
+/* #projects .item .left .pimg::after {
   content: "";
   position: absolute;
   left: 0;
   top: 0;
   height: 100%;
   width: 100%;
-}
+} */
 #projects .item .left .pimg img {
   object-fit: cover;
   transition: 0.3s ease transform;
@@ -139,7 +139,7 @@ a {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  padding: calc(0.6em - 4px) calc(1.6em - 4px);
+  /* padding: calc(0.6em - 4px) calc(1.6em - 4px); */
 }
 #projects .item .right .external-link svg {
   width: 25px;
@@ -164,13 +164,13 @@ a {
   #projects .item .right {
     margin-left: 0;
     width: 90%;
-    margin-top: -100px;
+    /* margin-top: -100px; */
   }
   #projects .item:nth-of-type(even) {
     flex-direction: column;
   }
   #projects .item:nth-of-type(even) .left {
-    margin-left: 0;
+    /* margin-left: 0; */
   }
 
   #projects .item .right {
@@ -183,8 +183,14 @@ a {
   .st img {
     width: 80%;
   }
+  /* #projects .item:nth-of-type(even) .left {
+    margin-top: 20px;
+  } */
 }
 @media only screen and (max-width: 450px) {
+  /* #projects .item:nth-of-type(even) .left {
+    margin-top: 20px;
+  } */
   .about-col-1 img {
     margin: auto;
     width: 100%;

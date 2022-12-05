@@ -119,12 +119,15 @@ nav ul li a:hover::after {
 }
 
 .about-col-1 {
+  /* border-top-left-radius: 50%; */
+  /* border-radius: 50px; */
   flex-basis: 35%;
 }
 .about-col-1 img {
+  /* border-radius: 50px; */
   margin: auto;
   width: 80%;
-  border-radius: 15px;
+  border-radius: 50%;
 }
 
 .about-col-2 {
@@ -286,6 +289,7 @@ nav .fas {
 #skill {
   text-align: center;
 }
+/* about-col-1 */
 #stats {
   margin-top: 50px;
   display: flex;
