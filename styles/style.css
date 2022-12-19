@@ -15,24 +15,18 @@ html {
   overflow-x: hidden;
 }
 body {
-  background: #080808;
-  color: #fff;
+  background: #252222;
+  /* color: #fff; */
   padding: 0;
   margin: 0;
   overflow-x: hidden;
-}
-
-#header {
-  width: 100%;
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
 }
 
 .container1 {
   padding: 0 10%;
 }
 nav {
+  background: #423e3e;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -41,11 +35,12 @@ nav {
   position: sticky;
   top: 0px;
   z-index: 10;
-  background-color: #080808;
+  /* background-color: #080808; */
 }
 
 .logo {
   width: 140px;
+  color: #fff;
 }
 nav ul li {
   display: inline-block;
@@ -62,7 +57,7 @@ nav ul li a::after {
   content: "";
   width: 0;
   height: 3px;
-  background: #ff004f;
+  background: #a03758;
   position: absolute;
   left: 0;
   bottom: -6px;
@@ -72,12 +67,12 @@ nav ul li a:hover::after {
   width: 100%;
 }
 
-
 /* ---------------about */
 
 #about {
   padding: 80px 0;
   color: #ababab;
+  /* color: #fff; */
 }
 
 .row {
@@ -92,12 +87,13 @@ nav ul li a:hover::after {
 .about-col-1 img {
   margin: auto;
   width: 80%;
-  border-radius: 50%;
+  border-radius: 10%;
 }
 
 .about-col-2 {
   flex-basis: 60%;
 }
+
 .subtitle {
   font-size: 60px;
   font-weight: 600;
@@ -106,41 +102,18 @@ nav ul li a:hover::after {
 .tab-title {
   display: flex;
   margin: 20px 0 40px;
+  color: #fff;
 }
+
 .tab-links {
-  margin-right: 50px;
-  font-size: 18px;
-  font-weight: 500;
-  cursor: pointer;
-  position: relative;
+  margin-bottom: -20px;
 }
-.tab-links::after {
-  content: "";
-  width: 0;
-  height: 3px;
-  background-color: #ff004f;
-  position: absolute;
-  left: 0;
-  bottom: -8px;
-  transition: 0.5s;
-  width: 50%;
-}
+
 .java {
   position: relative;
   margin-bottom: 15px;
 }
 
-.java::after {
-  content: "";
-  width: 0;
-  height: 3px;
-  background-color: #ff004f;
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-  transition: 0.5s;
-  width: 30%;
-}
 
 .tab-contents ul li {
   list-style: none;
@@ -148,6 +121,10 @@ nav ul li a:hover::after {
 }
 
 /* css for contact part */
+
+#contacth {
+  color: #fff;
+}
 #maill {
   overflow: hidden;
 }
@@ -159,10 +136,12 @@ nav ul li a:hover::after {
 }
 .contact-left p {
   margin-top: 30px;
+  color: #fff;
 }
 
 .contact-left p i {
-  color: #ff004f;
+  color: #cb5894;
+  /* color: #fff; */
   margin-right: 15px;
   font-size: 25px;
 }
@@ -173,17 +152,18 @@ nav ul li a:hover::after {
   text-decoration: none;
   font-size: 30px;
   margin-right: 15px;
-  color: #ababab;
+  /* color: #ababab; */
+  color: #fff;
   display: inline-block;
   transition: transform 0.5s;
 }
 .social-icons a:hover {
-  color: #ff004f;
+  color: #a03758;
   transform: translateY(-5px);
 }
 .btn.btn2 {
   display: inline-block;
-  background: #ff004f;
+  background: #a03758;
 }
 .contact-right form {
   width: 100%;
@@ -193,7 +173,7 @@ form textarea {
   width: 100%;
   border: 0;
   outline: none;
-  background: #262625;
+  background: #474745;
   padding: 15px;
   margin: 15px 0;
   color: #fff;
@@ -233,7 +213,7 @@ nav .fas {
   margin-bottom: 80px;
 }
 #skills-container {
-  border: white;
+  /* border: white; */
   margin: auto;
   margin-top: -50px;
   margin-bottom: 80px;
@@ -250,6 +230,7 @@ nav .fas {
 }
 #skill {
   text-align: center;
+  color: #fff;
 }
 /* about-col-1 */
 #stats {
@@ -273,28 +254,13 @@ nav .fas {
   #gittitle {
     font-size: 25px;
   }
-  #header {
-    padding-bottom: 500px;
-    display: flex;
-    align-items: end;
-  }
-  .header-text {
-    margin-top: 100%;
-    font-size: 16px;
-  }
-  .header-text h1 {
-    font-size: 30px;
-    margin-top: 20px;
-  }
-  .header-text p {
-    margin-bottom: 20px;
-  }
+ 
   nav .fas {
     display: block;
     font-size: 25px;
   }
   nav ul {
-    background: #ff004f;
+    background: #a03758;
     position: fixed;
     top: 0;
     right: -200px;
@@ -315,7 +281,7 @@ nav .fas {
     cursor: pointer;
   }
   .subtitle {
-    font-size: 40px;
+    font-size: 30px;
   }
   .about-col-1,
   .about-col-2 {
@@ -333,7 +299,7 @@ nav .fas {
   }
   #header .resume {
     font-size: 16px;
-    color: #ff004f;
+    color: #a03758;
     background-color: white;
     border-radius: 15px;
     padding: 10px;
@@ -354,6 +320,10 @@ nav .fas {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px 50px;
   }
+  .container1 {
+    margin-top: 20px;
+  }
+
   #stats {
     flex-direction: column;
   }
@@ -363,8 +333,14 @@ nav .fas {
   #stats {
     margin-top: -20px;
   }
+  #projects {
+    margin-bottom: -50px;
+  }
 }
 @media only screen and (max-width: 376px) {
+  #projects {
+    margin-bottom: -50px;
+  }
   .about-col-1 img {
     margin: auto;
     width: 100%;
@@ -373,15 +349,16 @@ nav .fas {
   #stats {
     margin-top: -20px;
   }
-  #header {
-    padding-bottom: 300px;
-    display: flex;
-    align-items: end;
-  }
   #skills-container {
     width: 80%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px 50px;
+  }
+  .subtitle {
+    font-size: 20px;
+  }
+  .java {
+    font-size: 17px;
   }
 }
