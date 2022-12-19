@@ -71,30 +71,7 @@ nav ul li a::after {
 nav ul li a:hover::after {
   width: 100%;
 }
-.header-text {
-  font-size: 30px;
-  margin-bottom: 20%;
-}
-.header-text h1 {
-  font-size: 60px;
-}
 
-.header-text h1 span {
-  color: #ff004f;
-}
-#header {
-  padding-bottom: 300px;
-  display: flex;
-  align-items: end;
-}
-.resume {
-  font-size: 16px;
-  color: #ff004f;
-  background-color: white;
-  border-radius: 15px;
-  padding: 10px;
-  margin-top: 20px;
-}
 
 /* ---------------about */
 
@@ -147,6 +124,22 @@ nav ul li a:hover::after {
   bottom: -8px;
   transition: 0.5s;
   width: 50%;
+}
+.java {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.java::after {
+  content: "";
+  width: 0;
+  height: 3px;
+  background-color: #ff004f;
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  transition: 0.5s;
+  width: 30%;
 }
 
 .tab-contents ul li {
