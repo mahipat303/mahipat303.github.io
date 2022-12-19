@@ -149,9 +149,14 @@ a {
   .st img {
     width: 80%;
   }
-
+  #stats {
+    margin-top: -20px;
+  }
 }
 @media only screen and (max-width: 450px) {
+  #stats {
+    margin-top: -20px;
+  }
   .about-col-1 img {
     margin: auto;
     width: 100%;

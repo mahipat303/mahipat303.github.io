@@ -41,6 +41,18 @@ text.ContributionCalendar-label {
     display: block;
     color: #ff004f;
   }
+  #gittitle {
+    margin-bottom: -20px;
+    margin-top: 50px;
+  }
+  .calendar {
+    margin-bottom: 0px;
+    /* border: solid red 1px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
 }
 :root {
   --color-calendar-graph-day-bg: #dddbdb;
