@@ -26,8 +26,7 @@ body {
   padding: 0 10%;
 }
 
-
-#db{
+#db {
   padding: 5px 9px;
   margin-top: 9px;
   border-radius: 5px;
@@ -121,7 +120,6 @@ nav ul li a:hover::after {
   position: relative;
   margin-bottom: 15px;
 }
-
 
 .tab-contents ul li {
   list-style: none;
@@ -262,7 +260,7 @@ nav .fas {
   #gittitle {
     font-size: 25px;
   }
- 
+
   nav .fas {
     display: block;
     font-size: 25px;
