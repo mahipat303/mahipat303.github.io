@@ -274,6 +274,12 @@ const heroWalk1 = makeSprite(HERO_WALK1, HERO_PAL);
 const heroWalk2 = makeSprite(HERO_WALK2, HERO_PAL);
 const heroJump = makeSprite(HERO_JUMP, HERO_PAL);
 
+// Real face overlay — drawn on top of the pixel head
+const faceImg = new Image();
+let faceReady = false;
+faceImg.onload = () => { faceReady = true; };
+faceImg.src = 'face.png';
+
 // Coin — 10 wide × 12 tall
 const COIN_PAL = {
   '#': COLORS.ink,
@@ -1045,9 +1051,13 @@ function render() {
   if (p.facing < 0) {
     ctx.translate(px + 14, py);
     ctx.scale(-1, 1);
-    ctx.drawImage(sprite, 0, 0);
   } else {
-    ctx.drawImage(sprite, px, py);
+    ctx.translate(px, py);
+  }
+  ctx.drawImage(sprite, 0, 0);
+  if (faceReady) {
+    // overlay the real face over the pixel head (rows ~0..7 of the 14x18 sprite)
+    ctx.drawImage(faceImg, 1, 0, 12, 9);
   }
   ctx.restore();
 
