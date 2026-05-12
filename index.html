@@ -1,519 +1,588 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Personal Portfolio</title>
-    <link rel="stylesheet" href="/styles/style.css" />
-    <link
-      rel="stylesheet"
-      href="//use.fontawesome.com/releases/v5.0.7/css/all.css"
-    />
-    <link rel="stylesheet" href="/styles/style2.css" />
-    <link rel="stylesheet" href="/styles/github.css" />
-  </head>
-  <body>
-    <!-- home section ---------------------------- -->
-    <nav>
-      <h1 class="logo">Mahipat303</h1>
-      <ul id="sidemenu">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About Me</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li>
-          <a
-            target="_blank"
-            href="https://drive.google.com/file/d/1q6eTuJhcOw-Z-FFNQYJdgW1zKgjueh7I/view?usp=sharing"
-            >Resume</a
-          >
-        </li>
-        <i class="fas fa-times" onclick="closemenu()"></i>
-      </ul>
+<head>
+<meta charset="UTF-8">
+<title>Mahipat Parmar — Press Start</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sky-top: #6BB6FF;
+    --sky-bot: #A9D6FF;
+    --grass: #84D03A;
+    --grass-dark: #4F9628;
+    --dirt: #7C4A1F;
+    --dirt-dark: #5A3415;
+    --brick: #C84B3A;
+    --brick-dark: #8E2E1F;
+    --pipe: #22A04A;
+    --pipe-dark: #0D6B2F;
+    --coin: #FFD93D;
+    --coin-dark: #C99A2B;
+    --hero: #27B5B5;
+    --ink: #1B1B2E;
+    --panel: #FFF8E7;
+    --panel-line: #1B1B2E;
+  }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden;
+    background: #000;
+    font-family: 'VT323', monospace;
+    color: var(--ink);
+    -webkit-font-smoothing: none;
+    image-rendering: pixelated;
+  }
+  body {
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  #stage {
+    position: relative;
+    width: 100vw; height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(180deg, #6BB6FF 0%, #A9D6FF 100%);
+  }
+  canvas#game {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
 
-      <i class="fas fa-bars" onclick="openmenu()"></i>
-    </nav>
-    <div id="main">
-      <div id="about">
-        <div class="container1">
-          <div class="row">
-            <div class="about-col-1">
-              <img src="/images/IMG_20220527_143929-removebg (1)000.png" alt="" />
-            </div>
-            <div class="about-col-2">
-              <h1 class="subtitle">Mahipat Parmar</h1>
-              <h2 class="java">Java Backend Devloper</h2>
-              <p>
-                Analytical and detail-oriented aspiring Java Back-end Developer.
-                Exceptionally focused and reliable Entry Level Java Developer
-                with an outstanding work ethic and integration with intuitive
-                problem-solving skills.
-              </p>
-              <button id="db">
-                <a
-                  id="download"
-                  href="https://drive.google.com/uc?export=download&id=1q6eTuJhcOw-Z-FFNQYJdgW1zKgjueh7I"
-                  >Download Resume</a
-                >
-              </button>
+  /* ---------- HUD ---------- */
+  .hud {
+    position: absolute; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between;
+    padding: 18px 24px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    color: #fff;
+    text-shadow: 2px 2px 0 #1B1B2E, -2px -2px 0 #1B1B2E, 2px -2px 0 #1B1B2E, -2px 2px 0 #1B1B2E;
+    pointer-events: none;
+    z-index: 5;
+    letter-spacing: 1px;
+  }
+  .hud-group { display: flex; gap: 22px; }
+  .hud-cell { display: flex; flex-direction: column; gap: 4px; }
+  .hud-label { font-size: 9px; opacity: 0.85; }
+  .hud-val { font-size: 14px; }
+  .hud-coin::before {
+    content: ""; display: inline-block; width: 12px; height: 12px;
+    background: #FFD93D; border: 2px solid #1B1B2E; border-radius: 50%;
+    box-shadow: inset -2px -2px 0 #C99A2B;
+    margin-right: 6px; vertical-align: -2px;
+  }
+  .hud-heart {
+    display: inline-block; width: 14px; height: 12px;
+    background:
+      radial-gradient(circle at 30% 35%, #FF6B6B 0 30%, transparent 31%),
+      radial-gradient(circle at 70% 35%, #FF6B6B 0 30%, transparent 31%);
+    margin-right: 4px;
+    position: relative;
+  }
+  .lives { display: flex; gap: 4px; align-items: center; }
+  .heart {
+    width: 14px; height: 14px;
+    background: #E83A3A;
+    clip-path: polygon(50% 100%, 100% 50%, 100% 25%, 75% 0, 50% 25%, 25% 0, 0 25%, 0 50%);
+    box-shadow: inset -2px -2px 0 #8E1F1F;
+  }
+  .heart.empty { background: #2a2a3a; box-shadow: inset -2px -2px 0 #000; opacity: 0.5; }
 
-              <div class="tab-title">
-                <p class="tab-links active-link" onclick="opentab('education')">
-                  Education
-                </p>
-              </div>
-              <div class="tab-contents active-tab" id="education">
-                <ul>
-                  <li>
-                    <span> 2022 </span> <br />
-                    java backend devlopment at Masai
-                  </li>
-                  <li>
-                    <span> 2020 </span> <br />
-                    Bachelor of Science in Zoology at S.S.S.D.I.I.T
-                  </li>
-                  <li>
-                    <span> 2017 </span> <br />
-                    High School Diploma at Sorath international school
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+  /* ---------- Controls hint ---------- */
+  .controls-hint {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 18px; align-items: center;
+    font-family: 'Press Start 2P', monospace; font-size: 9px; color: #fff;
+    text-shadow: 2px 2px 0 #1B1B2E;
+    pointer-events: none;
+    z-index: 5;
+    letter-spacing: 1px;
+    opacity: 0.95;
+  }
+  .key {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 24px; height: 24px; padding: 0 7px;
+    background: #FFF8E7; color: #1B1B2E;
+    border: 2px solid #1B1B2E;
+    box-shadow: 0 3px 0 #1B1B2E;
+    margin-right: 6px;
+    font-size: 9px;
+  }
+
+  /* ---------- Title / start screen ---------- */
+  .title {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+    background: linear-gradient(180deg, #1B1B2E 0%, #2a1a4a 100%);
+    color: #fff;
+    z-index: 30;
+    font-family: 'Press Start 2P', monospace;
+    text-align: center;
+    transition: opacity 0.4s;
+  }
+  .title.hidden { opacity: 0; pointer-events: none; }
+  .title-stars {
+    position: absolute; inset: 0; overflow: hidden;
+  }
+  .title-stars::before, .title-stars::after {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, #fff, transparent),
+      radial-gradient(1px 1px at 70% 60%, #fff, transparent),
+      radial-gradient(1px 1px at 45% 80%, #fff, transparent),
+      radial-gradient(2px 2px at 85% 25%, #fff, transparent),
+      radial-gradient(1px 1px at 15% 70%, #fff, transparent),
+      radial-gradient(1px 1px at 60% 15%, #fff, transparent),
+      radial-gradient(2px 2px at 35% 50%, #fff, transparent),
+      radial-gradient(1px 1px at 90% 85%, #fff, transparent);
+    background-size: 100% 100%;
+    opacity: 0.7;
+    animation: twinkle 4s steps(8) infinite;
+  }
+  .title-stars::after { animation-delay: 2s; opacity: 0.4; }
+  @keyframes twinkle { 50% { opacity: 0.2; } }
+
+  .title-logo {
+    font-size: clamp(28px, 5vw, 64px);
+    line-height: 1.2;
+    color: #FFD93D;
+    text-shadow:
+      4px 4px 0 #C84B3A,
+      8px 8px 0 #1B1B2E;
+    letter-spacing: 4px;
+    margin-bottom: 6px;
+    transform: rotate(-1.5deg);
+  }
+  .title-sub {
+    font-size: clamp(10px, 1.4vw, 14px);
+    color: #fff;
+    letter-spacing: 4px;
+    margin-bottom: 36px;
+    opacity: 0.95;
+  }
+  .title-name {
+    font-size: clamp(14px, 2vw, 22px);
+    color: #27E0E0;
+    margin-bottom: 36px;
+    letter-spacing: 3px;
+  }
+  .press-start {
+    font-size: clamp(11px, 1.4vw, 16px);
+    color: #fff;
+    animation: blink 1s steps(2) infinite;
+    letter-spacing: 3px;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .title-controls {
+    margin-top: 36px;
+    display: flex; flex-direction: column; gap: 10px;
+    font-size: 9px;
+    color: #ccc;
+    letter-spacing: 2px;
+  }
+  .title-controls .row { display: flex; gap: 16px; align-items: center; justify-content: center; }
+
+  /* ---------- Section panel (modal) ---------- */
+  .panel-wrap {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(27, 27, 46, 0.55);
+    z-index: 20;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.18s;
+    padding: 20px;
+  }
+  .panel-wrap.open { opacity: 1; pointer-events: auto; }
+  .panel {
+    background: #FFF8E7;
+    border: 4px solid #1B1B2E;
+    box-shadow: 0 8px 0 #1B1B2E, 0 0 0 8px #FFD93D, 0 0 0 12px #1B1B2E;
+    max-width: 720px; width: 100%;
+    max-height: 78vh;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transform: scale(0.92);
+    transition: transform 0.22s cubic-bezier(.3,1.6,.5,1);
+  }
+  .panel-wrap.open .panel { transform: scale(1); }
+  .panel-head {
+    padding: 14px 18px;
+    background: #1B1B2E;
+    color: #FFD93D;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    letter-spacing: 2px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 4px solid #1B1B2E;
+  }
+  .panel-head .lvl {
+    font-size: 9px; color: #fff; opacity: 0.7;
+    background: #C84B3A; padding: 4px 8px;
+    border: 2px solid #FFD93D;
+  }
+  .panel-body {
+    padding: 22px 26px 26px;
+    overflow-y: auto;
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    line-height: 1.35;
+    color: #1B1B2E;
+  }
+  .panel-body::-webkit-scrollbar { width: 8px; }
+  .panel-body::-webkit-scrollbar-track { background: #EFE5C8; }
+  .panel-body::-webkit-scrollbar-thumb { background: #1B1B2E; }
+  .panel-foot {
+    padding: 10px 18px;
+    border-top: 4px solid #1B1B2E;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: #1B1B2E;
+    display: flex; justify-content: space-between; align-items: center;
+    background: #FFD93D;
+  }
+  .panel-foot button {
+    font-family: inherit; font-size: 9px;
+    background: #1B1B2E; color: #FFD93D;
+    border: 2px solid #1B1B2E;
+    padding: 6px 10px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 #C84B3A;
+    letter-spacing: 1px;
+  }
+  .panel-foot button:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0 #C84B3A; }
+
+  /* panel body styling */
+  .panel-body h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+    color: #C84B3A;
+    margin: 14px 0 8px;
+    letter-spacing: 1px;
+  }
+  .panel-body h3:first-child { margin-top: 0; }
+  .panel-body p { margin-bottom: 10px; }
+  .panel-body ul { list-style: none; margin: 4px 0 12px; }
+  .panel-body li {
+    padding-left: 22px; position: relative; margin-bottom: 4px;
+  }
+  .panel-body li::before {
+    content: ""; position: absolute; left: 4px; top: 9px;
+    width: 10px; height: 10px;
+    background: #FFD93D; border: 2px solid #1B1B2E;
+    border-radius: 50%;
+    box-shadow: inset -2px -2px 0 #C99A2B;
+  }
+  .panel-body .tag {
+    display: inline-block;
+    padding: 3px 8px;
+    background: #27B5B5; color: #fff;
+    border: 2px solid #1B1B2E;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    margin: 0 4px 4px 0;
+    letter-spacing: 1px;
+  }
+  .panel-body .tag.alt { background: #C84B3A; }
+  .panel-body .tag.warm { background: #FFB84D; color: #1B1B2E; }
+  .panel-body .tag.green { background: #4F9628; }
+  .panel-body a { color: #C84B3A; text-decoration: underline; }
+  .panel-body a:hover { color: #1B1B2E; }
+  .stat-row {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;
+  }
+  .stat {
+    background: #1B1B2E; color: #FFD93D;
+    padding: 8px 12px;
+    border: 2px solid #1B1B2E;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    box-shadow: 3px 3px 0 #C84B3A;
+  }
+  .stat span { color: #fff; display: block; font-size: 7px; margin-top: 4px; opacity: 0.75; }
+
+  .project-card {
+    background: #fff;
+    border: 3px solid #1B1B2E;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    box-shadow: 4px 4px 0 #1B1B2E;
+  }
+  .project-card h4 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px; color: #1B1B2E;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+  .project-card .meta {
+    font-size: 14px; color: #C84B3A; margin-bottom: 6px;
+  }
+  .project-card .num {
+    color: #4F9628; font-weight: bold;
+    background: #FFF8E7; padding: 0 6px;
+    border-bottom: 2px solid #4F9628;
+  }
+  .role-card {
+    background: #fff;
+    border: 3px solid #1B1B2E;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    box-shadow: 4px 4px 0 #1B1B2E;
+  }
+  .role-card .top {
+    display: flex; justify-content: space-between;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    margin-bottom: 4px; gap: 10px;
+  }
+  .role-card .top .when { color: #4F9628; font-size: 8px; white-space: nowrap; }
+  .role-card .where { font-size: 14px; color: #C84B3A; margin-bottom: 6px; }
+
+  /* ---------- Pause overlay ---------- */
+  .pause {
+    position: absolute; inset: 0;
+    background: rgba(27, 27, 46, 0.7);
+    display: none; align-items: center; justify-content: center; flex-direction: column;
+    z-index: 25;
+    color: #fff; font-family: 'Press Start 2P', monospace;
+    gap: 14px;
+  }
+  .pause.show { display: flex; }
+  .pause h2 { font-size: 28px; color: #FFD93D; letter-spacing: 4px; }
+  .pause p { font-size: 11px; letter-spacing: 2px; }
+
+  /* ---------- Toast (collect coin etc) ---------- */
+  .toast-stack {
+    position: absolute; top: 90px; right: 24px;
+    display: flex; flex-direction: column; gap: 6px;
+    z-index: 6; pointer-events: none;
+  }
+  .toast {
+    background: #1B1B2E; color: #FFD93D;
+    border: 2px solid #FFD93D;
+    padding: 8px 12px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    box-shadow: 3px 3px 0 #C84B3A;
+    animation: toastIn 2.6s forwards;
+    max-width: 240px;
+  }
+  @keyframes toastIn {
+    0% { transform: translateX(40px); opacity: 0; }
+    8%, 75% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(40px); opacity: 0; }
+  }
+
+  /* ---------- Win screen ---------- */
+  .win {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #1B1B2E 0%, #2a1a4a 100%);
+    display: none; align-items: center; justify-content: center; flex-direction: column;
+    z-index: 28; gap: 22px; color: #fff;
+    font-family: 'Press Start 2P', monospace; text-align: center;
+    padding: 30px;
+  }
+  .win.show { display: flex; }
+  .win h2 { font-size: clamp(28px, 4vw, 48px); color: #FFD93D; letter-spacing: 4px;
+    text-shadow: 4px 4px 0 #C84B3A; }
+  .win p { font-size: 12px; letter-spacing: 2px; max-width: 600px; line-height: 1.8; }
+  .win .links { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .win .links a {
+    background: #FFD93D; color: #1B1B2E;
+    border: 3px solid #FFD93D;
+    padding: 10px 16px;
+    font-size: 10px; text-decoration: none; letter-spacing: 2px;
+    box-shadow: 4px 4px 0 #C84B3A;
+  }
+  .win .links a:hover { transform: translate(2px,2px); box-shadow: 2px 2px 0 #C84B3A; }
+  .win button.restart {
+    background: transparent; color: #fff; border: 2px solid #fff;
+    padding: 8px 14px; font-family: inherit; font-size: 10px;
+    cursor: pointer; letter-spacing: 2px;
+    margin-top: 10px;
+  }
+
+  /* ---------- Mobile controls ---------- */
+  .touch-controls {
+    position: absolute; bottom: 16px; left: 0; right: 0;
+    display: none; justify-content: space-between;
+    padding: 0 18px;
+    z-index: 7;
+    pointer-events: none;
+  }
+  .touch-controls .pad, .touch-controls .jump {
+    pointer-events: auto;
+    display: flex; gap: 10px;
+  }
+  .tbtn {
+    width: 56px; height: 56px;
+    background: rgba(27,27,46,0.65);
+    color: #FFD93D;
+    border: 3px solid #FFD93D;
+    border-radius: 50%;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 16px;
+    user-select: none; -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  .tbtn:active { transform: scale(0.94); }
+  @media (hover: none) and (pointer: coarse) {
+    .touch-controls { display: flex; }
+    .controls-hint { display: none; }
+  }
+</style>
+</head>
+<body>
+  <div id="stage">
+    <canvas id="game"></canvas>
+
+    <!-- HUD -->
+    <div class="hud">
+      <div class="hud-group">
+        <div class="hud-cell">
+          <div class="hud-label">PLAYER 1</div>
+          <div class="hud-val">MAHIPAT</div>
+        </div>
+        <div class="hud-cell">
+          <div class="hud-label">SCORE</div>
+          <div class="hud-val" id="score">000000</div>
         </div>
       </div>
-
-      <section id="projects">
-        <div class="container">
-          <h2 class="section-heading" data-outline="Projects">Projects</h2>
-          <div class="all-items">
-            <div class="item">
-              <div class="left">
-                <div class="pimg">
-                  <img
-                    src="/images/SmatBot _ AI Chatbot for all your business needs.png"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div class="right">
-                <h2 class="project-title">smatBot.com</h2>
-                <h3 class="project-sub-title">Online bot creator</h3>
-                <p class="project-desc">
-                  => it has some amazing feature like you can create your own
-                  chat bot. <br />
-                  <br />
-                  => customize desktop for every user after login.
-                </p>
-                <p class="project-desc">
-                  Tech Stack - HTML | CSS | JAVA-SCRIPT
-                </p>
-                <div class="buttons">
-                  <a
-                    target="_blank"
-                    href="https://github.com/mahipat303/wired-interest-36"
-                    class="primary-btn"
-                    >code</a
-                  >
-                  <a
-                    target="_blank"
-                    href="https://elaborate-vacherin-013d66.netlify.app/"
-                    class="primary-btn outline external-link"
-                  >
-                    <span>Preview</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="item">
-              <div class="left">
-                <div class="pimg">
-                  <img
-                    src="/images/Zappos.com, FREE Shipping, Clothing, Shoes2.png"
-                    alt="#"
-                  />
-                </div>
-              </div>
-              <div class="right">
-                <h2 class="project-title">Zappos.com</h2>
-                <h3 class="project-sub-title">
-                  clone site of a well-known E-commerce website named Zappos.
-                </h3>
-                <p class="project-desc">
-                  it has some feature like Login/Logout | sorting items | add to
-                  cart | checkout | filter products | cart customization
-                </p>
-                <p class="project-desc">
-                  Tech Stack - HTML | CSS | JAVA-SCRIPT
-                </p>
-                <div class="buttons">
-                  <a
-                    target="_blank"
-                    href="https://github.com/mahipat303/subtle-swing-119"
-                    class="primary-btn"
-                    >code</a
-                  >
-                  <a
-                    target="_blank"
-                    href="https://golden-babka-fa32db.netlify.app/"
-                    class="primary-btn outline external-link"
-                  >
-                    <span>Preview</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="item">
-              <div class="left">
-                <div class="pimg">
-                  <img src="/images/Course Monitore (2)-01-01.jpeg" alt="" />
-                </div>
-              </div>
-              <div class="right">
-                <h2 class="project-title">Course Monitor</h2>
-                <h3 class="project-sub-title">
-                  the Automated Course Monitoring System.
-                </h3>
-                <p class="project-desc">
-                  => it is a console based project.
-                  <br />
-                  <br />
-                  => this will keep the records of all the
-                  courses,batches,faculties and the daywise update for every
-                  batch.
-                </p>
-                <p class="project-desc">Tech Stack - java | JDBC | MYSQL</p>
-                <div class="buttons">
-                  <a
-                    target="_blank"
-                    href="https://github.com/mahipat303/money-cellar-3895"
-                    class="primary-btn"
-                    >code</a
-                  >
-                  <a
-                    target="_blank"
-                    href="https://drive.google.com/file/d/1LuwrajTQlK4CUXg-ODQvr_8XWhJVmdCq/view?usp=sharing"
-                    class="primary-btn outline external-link"
-                  >
-                    <span>Demo Video</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="item">
-              <div class="left">
-                <div class="pimg">
-                  <img src="/images/foodland.png" alt="" />
-                </div>
-              </div>
-              <div class="right">
-                <h2 class="project-title">foodland</h2>
-                <h3 class="project-sub-title">
-                  The Aim of this application is to form a bridge between
-                  restaurant and customers.
-                </h3>
-                <p class="project-desc">
-                  => A web service which provides the API support for
-                  frontEnd.<br />
-                  <br />
-                  => restaurant can add items and customer can buy any item of
-                  any restaurant.
-                </p>
-                <p class="project-desc">
-                  User - Customer | restaurant <br /><br />
-                  Tech Stack - java | springBoot | swagger | hibernate
-                </p>
-                <div class="buttons">
-                  <a
-                    target="_blank"
-                    href="https://github.com/mahipat303/absent-sky-3233"
-                    class="primary-btn"
-                    >code</a
-                  >
-                  <a
-                    target="_blank"
-                    href="https://drive.google.com/file/d/1HQyqeERzSqdYAZPZPmmq_v11xge_LhH-/view"
-                    class="primary-btn outline external-link"
-                  >
-                    <span>Demo Video</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
+      <div class="hud-group">
+        <div class="hud-cell">
+          <div class="hud-label">LIVES</div>
+          <div class="lives" id="lives">
+            <div class="heart"></div><div class="heart"></div><div class="heart"></div>
           </div>
         </div>
-      </section>
-
-      <div id="skills">
-        <div class="container1">
-          <div class="skill-heading">
-            <h2 id="gittitle" class="section-heading" data-outline="My Skills">
-              My Skills
-            </h2>
-          </div>
-          <div id="skills-container">
-            <div id="skill">
-              <img
-                src="https://bhasker-portfolio.netlify.app/images/spring-boot-logo.png"
-                alt=""
-              />
-              <p>SPRING BOOT</p>
-            </div>
-            <div id="skill">
-              
-              <img
-                src="https://bhasker-portfolio.netlify.app/images/java-svgrepo-com.svg"
-                alt=""
-              />
-              <p>java</p>
-            </div>
-            <div id="skill">
-              <img
-                src="https://bhasker-portfolio.netlify.app/images/spring-icon.svg"
-                alt=""
-              />
-              <p>SPRING</p>
-            </div>
-            <div id="skill">
-              <img
-                src="https://bhasker-portfolio.netlify.app/images/hibernate_logo_icon_171004.svg"
-                alt=""
-              />
-              <p>HIBERNATE</p>
-            </div>
-            <div id="skill">
-              <img
-                src="https://bhasker-portfolio.netlify.app/images/mysqlworkbench_102952.svg"
-                alt=""
-              />
-              <p>MYSQL</p>
-            </div>
-            <div id="skill">
-              <img
-                src="https://pbs.twimg.com/profile_images/1599829788369113089/FrdYoQ1o_400x400.jpg"
-                alt=""
-              />
-              <p>AWS</p>
-            </div>
-            <div id="skill">
-              <img
-                src="https://bhasker-portfolio.netlify.app/images/icons8-github.svg"
-                alt=""
-              />
-              <p>GITHUB</p>
-            </div>
-            <div id="skill">
-              <img
-                src="https://bhasker-portfolio.netlify.app/images/icons8-html-5.svg"
-                alt=""
-              />
-              <p>HTML 5</p>
-            </div>
-            <div id="skill">
-              <img
-                src="https://bhasker-portfolio.netlify.app/images/icons8-css3.svg"
-                alt=""
-              />
-              <p>CSS</p>
-            </div>
-            <div id="skill">
-              <img
-                src="https://bhasker-portfolio.netlify.app/images/icons8-javascript.svg"
-                alt=""
-              />
-              <p>JAVASCRIPT</p>
-            </div>
-            <div id="skill">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/2048px-Visual_Studio_Code_1.35_icon.svg.png"
-                alt=""
-              />
-              <p>Visual Studio</p>
-            </div>
-            <div id="skill">
-              <img
-                src="https://spring.io/images/logo-spring-tools-gear-3dbfa4e3714afa9d58885422ec7ac8e5.svg"
-                alt=""
-              />
-              <p>sts</p>
-            </div>
-            <div id="skill">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/IntelliJ_IDEA_Icon.svg/1200px-IntelliJ_IDEA_Icon.svg.png"
-                alt=""
-              />
-              <p>IntelliJ IDEA</p>
-            </div>
-            <div id="skill">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Swagger-logo.png"
-                alt=""
-              />
-              <p>Swagger</p>
-            </div>
-            <div id="skill">
-              <img
-                src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/postman-icon.png"
-                alt=""
-              />
-              <p>Postman</p>
-            </div>
-          </div>
+        <div class="hud-cell">
+          <div class="hud-label">COINS</div>
+          <div class="hud-val"><span class="hud-coin"></span><span id="coins">00</span><span style="opacity:0.6">/<span id="coins-total">00</span></span></div>
+        </div>
+        <div class="hud-cell">
+          <div class="hud-label">WORLD</div>
+          <div class="hud-val">1-1</div>
         </div>
       </div>
-
-      <h2 id="gittitle" class="section-heading" data-outline="github-calendar">
-        github-calendar
-      </h2>
-      <div class="calendar">Loading the data just for you.</div>
-
-      <div id="stats">
-        <p class="st">
-          <a href="https://github.com/mahipat303">
-            <img
-              src="https://github-readme-stats.vercel.app/api?username=mahipat303&theme=gruvbox&show_icons=true&hide_border=true&count_private=true"
-            />
-          </a>
-        </p>
-        <p class="st">
-          <a href="https://github.com/mahipat303">
-            <img
-              src="https://github-readme-streak-stats.herokuapp.com/?user=mahipat303&theme=gruvbox&hide_border=true"
-            />
-          </a>
-        </p>
-        <p class="st">
-          <a href="https://github.com/mahipat303">
-            <img
-              src="https://github-readme-stats.vercel.app/api/top-langs/?username=mahipat303&theme=gruvbox&show_icons=true&hide_border=true&count_private=true"
-            />
-          </a>
-        </p>
-      </div>
-
-      <section id="contact">
-        <div class="container1">
-          <div class="row">
-            <div class="contact-left">
-              <h1 id="contacth" class="sub-title">Contact Me</h1>
-              <p id="maill">
-                <i class="fas fa-paper-plane"></i>memahipat303@gmail.com
-              </p>
-              <p><i class="fas fa-phone-square"></i> +91-7069829127</p>
-
-              <div class="social-icons">
-                <a
-                  href="https://www.linkedin.com/in/mahipat-parmar-a10765213/"
-                  target="_blank"
-                  ><i class="fab fa-linkedin"></i
-                ></a>
-                <a href="https://twitter.com/Mahi_303" target="_blank"
-                  ><i class="fab fa-twitter-square"></i
-                ></a>
-                <a href="https://www.instagram.com/mahi__303/" target="_blank"
-                  ><i class="fab fa-instagram"></i
-                ></a>
-                <a href="https://github.com/mahipat303" target="_blank"
-                  ><i class="fab fa-github"></i
-                ></a>
-              </div>
-            </div>
-            <div class="contact-right">
-              <form name="submit-to-google-sheet">
-                <input
-                  type="text"
-                  name="Name"
-                  placeholder="Your Name"
-                  required
-                />
-                <input
-                  type="email"
-                  name="Email"
-                  placeholder="Your Email"
-                  required
-                />
-                <textarea
-                  name="Message"
-                  rows="6"
-                  placeholder="Your Message"
-                ></textarea>
-                <button type="submit" class="btn btn2">Submit</button>
-              </form>
-              <span id="msg"></span>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
-  </body>
+
+    <!-- Controls hint -->
+    <div class="controls-hint">
+      <span><span class="key">←</span><span class="key">→</span> MOVE</span>
+      <span><span class="key">SPACE</span> JUMP</span>
+      <span><span class="key">DOWN</span> ENTER PIPE</span>
+      <span><span class="key">P</span> PAUSE</span>
+      <span><span class="key">M</span> MUTE</span>
+    </div>
+
+    <!-- Toast stack -->
+    <div class="toast-stack" id="toasts"></div>
+
+    <!-- Touch controls -->
+    <div class="touch-controls">
+      <div class="pad">
+        <button class="tbtn" data-key="ArrowLeft">◀</button>
+        <button class="tbtn" data-key="ArrowRight">▶</button>
+        <button class="tbtn" data-key="ArrowDown">▼</button>
+      </div>
+      <div class="jump">
+        <button class="tbtn" data-key=" ">A</button>
+      </div>
+    </div>
+
+    <!-- Pause -->
+    <div class="pause" id="pause">
+      <h2>PAUSED</h2>
+      <p>Press P to resume</p>
+    </div>
+
+    <!-- Section panels -->
+    <div class="panel-wrap" id="panel-wrap">
+      <div class="panel">
+        <div class="panel-head">
+          <span id="panel-title">SECTION</span>
+          <span class="lvl" id="panel-lvl">LV 1</span>
+        </div>
+        <div class="panel-body" id="panel-body"></div>
+        <div class="panel-foot">
+          <span>★ +100 PTS COLLECTED</span>
+          <button id="panel-close">[ESC] CLOSE</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Win screen -->
+    <div class="win" id="win">
+      <h2>STAGE CLEAR!</h2>
+      <p id="win-stats">You collected every section. Thanks for playing through my portfolio.</p>
+      <div class="links">
+        <a href="mailto:memahipat303@gmail.com">EMAIL</a>
+        <a href="https://www.linkedin.com/in/mahipatparmar-a10765213" target="_blank">LINKEDIN</a>
+        <a href="https://mahipat303.github.io/" target="_blank">PORTFOLIO</a>
+      </div>
+      <button class="restart" id="restart">↻ PLAY AGAIN</button>
+    </div>
+
+    <!-- Title screen -->
+    <div class="title" id="title">
+      <div class="title-stars"></div>
+      <div class="title-logo">SUPER<br>DEV WORLD</div>
+      <div class="title-sub">A PORTFOLIO QUEST</div>
+      <div class="title-name">★ MAHIPAT PARMAR ★<br><span style="font-size:0.65em;color:#FFD93D;letter-spacing:2px">SOFTWARE ENGINEER · OPSHUB</span></div>
+      <div class="press-start">▶ PRESS ANY KEY / TAP TO START</div>
+      <div class="title-controls">
+        <div class="row"><span class="key" style="margin-right:0">←→</span> MOVE</div>
+        <div class="row"><span class="key" style="margin-right:0">SPACE</span> JUMP</div>
+        <div class="row"><span class="key" style="margin-right:0">DOWN</span> ENTER PIPE WHEN STANDING ON ONE</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content data -->
+  <script type="application/json" id="content">
+  {
+    "about": {
+      "title": "ABOUT ME",
+      "lvl": "LV 1 · INTRO",
+      "html": "<h3>► Player Stats</h3><div class='stat-row'><div class='stat'>3+<span>YEARS EXP</span></div><div class='stat'>11+<span>CONNECTORS</span></div><div class='stat'>6×<span>PERF GAINS</span></div><div class='stat'>1<span>HACKATHON PODIUM</span></div><div class='stat'>2<span>LAYERS OF PRIVACY</span></div></div><h3>► Bio</h3><p>I'm a <b>software engineer at OpsHub</b>, building Java/Spring Boot backends that quietly sync work items, test cases, and requirements across the toughest enterprise ALM tools out there. On the side I build systems at the intersection of <b>AI and security</b> — most recently a privacy framework that lets enterprises safely use public LLMs on proprietary code.</p><p>I started as a Tech Intern at Salesken in 2023, joined OpsHub straight after, and since then I've shipped end-to-end connectors, performance fixes that customers actually feel, and SDK features the next dev gets to build on top of.</p><h3>► Spawn Point</h3><p>📍 Ahmedabad, Gujarat, India</p><p>I speak <span class='tag green'>ENGLISH</span><span class='tag green'>HINDI</span><span class='tag green'>GUJARATI</span></p>"
+    },
+    "skills": {
+      "title": "SKILL TREE",
+      "lvl": "LV 2 · ARSENAL",
+      "html": "<h3>► Primary Class: Backend</h3><p><span class='tag'>JAVA</span><span class='tag'>SPRING BOOT</span><span class='tag'>PYTHON</span><span class='tag'>AWS</span><span class='tag'>JAVASCRIPT</span><span class='tag'>HTML</span><span class='tag'>CSS</span></p><h3>► AI / Security Stack (NEW)</h3><p><span class='tag warm'>MCP (Model Context Protocol)</span><span class='tag warm'>CLAUDE / LLM INTEGRATION</span><span class='tag warm'>MITMPROXY</span><span class='tag warm'>SQLITE / VAULT DESIGN</span><span class='tag warm'>PSEUDONYMIZATION</span><span class='tag warm'>REGEX MASKING</span><span class='tag warm'>STRUCTLOG / JSONL AUDIT</span><span class='tag warm'>DEFENSE IN DEPTH</span></p><h3>► Domain Mastery</h3><p>Connector design · entity modeling · polling · attachments · reconciliation · scale testing · CTP · large-dataset migrations · enterprise data privacy · zero-trust egress.</p><h3>► Systems I've Integrated With</h3><p><span class='tag alt'>TOSCA</span><span class='tag alt'>qTEST</span><span class='tag alt'>JIRA XRAY</span><span class='tag alt'>AHA!</span><span class='tag alt'>MSDYNAMICS</span><span class='tag alt'>READYONE</span><span class='tag alt'>JAMA</span><span class='tag alt'>RALLY</span><span class='tag alt'>ADO / TFS</span><span class='tag alt'>IBM DOORS</span><span class='tag alt'>OIM4ADO</span></p><h3>► Power-Ups</h3><p><span class='tag green'>PERF TUNING</span><span class='tag green'>API CACHING</span><span class='tag green'>DB QUERY OPT</span><span class='tag green'>MEMORY TUNING</span><span class='tag green'>SDK EXTENSION</span><span class='tag green'>AUTOMATION</span><span class='tag green'>SYSTEM DESIGN</span></p><h3>► Team & Process</h3><p><span class='tag'>CODE REVIEW</span><span class='tag'>TRIAGE</span><span class='tag'>SPRINT PLANNING</span><span class='tag'>CUSTOMER DEMOS</span><span class='tag'>GIT / GITHUB</span><span class='tag'>VSTS</span><span class='tag'>PYTEST</span></p>"
+    },
+    "projects": {
+      "title": "BOSS BATTLES",
+      "lvl": "LV 3 · QUESTS",
+      "html": "<h3>► ★ FINAL BOSS: The Privacy Layer for Public LLMs</h3><div class='project-card' style='border-color:#C84B3A;box-shadow:4px 4px 0 #C84B3A'><h4>PRIVACY LAYER FOR PUBLIC LLMs ON ENTERPRISE CODE</h4><div class='meta'>Self-shipped · Python · MCP · mitmproxy · SQLite</div><p>A <b>two-layer privacy framework</b> that lets enterprises use Claude / GPT / Gemini on proprietary source code. The developer sees real code, the cloud sees pseudonyms, and an independent guardrail kills anything that slips through.</p><p><b>Layer 1 — Masking MCP Server.</b> Sandboxed file API exposed to Claude Desktop. Replaces internal names with consistent tokens like <code>[APP_001]</code> so the model can still reason about the code, with a reversible SQLite vault for local unmask.</p><p><b>Layer 2 — Guardrail mitmproxy addon.</b> Independently scans every outbound request to the LLM provider. <b>Fail-closed.</b> Assumes Layer 1 might be broken.</p><div class='stat-row'><div class='stat'>74<span>JAVA FILES TESTED</span></div><div class='stat'>4,062<span>SAFE REPLACEMENTS</span></div><div class='stat'>~20 ms<span>MASK + UNMASK</span></div><div class='stat'>0<span>LEAKS / 74 FILES</span></div></div><p><i>Framed against real industry incidents — the 2023 Samsung source-code leak into ChatGPT, the corporate ban wave (JPMorgan, Goldman, Apple, Verizon), and the Cyberhaven finding that ~11% of pasted ChatGPT content is sensitive.</i></p></div><h3>► Quest 1: The Tosca Dragon</h3><div class='project-card'><h4>TRICENTIS TOSCA CONNECTOR · FY23-24</h4><div class='meta'>Flagship delivery · Customer: Roche · End-to-end ownership</div><p>Built a new connector for Tricentis Tosca on the OIM platform. The source system was so unconventional that standard modeling didn't fit — modeled test entities, test steps, workspace lock, and cloned workspaces with a custom approach. Owned dev, design, modeling, customer demos, and customer interactions. <i>Manager flagged this as the standout delivery of the year.</i></p></div><h3>► Quest 2: The Mastercard Sync Speedrun</h3><div class='project-card'><h4>MASTERCARD SYNC PERF · <span class='num'>~6× FASTER</span></h4><div class='meta'>Bug 253757 · Triage rotation win</div><p>Sync at Mastercard was bottlenecked on DB query frequency. Optimized the hot path during triage — <b>~6× performance improvement</b> on the customer sync. Triage as perf engineering, not just firefighting.</p></div><h3>► Quest 3: The 1,200-Call Problem</h3><div class='project-card'><h4>RALLY API CACHING · <span class='num'>1,200 → 1 CALL</span></h4><div class='meta'>Enhancement 199414 · Mastercard</div><p>OIM was making ~1,200 Rally API calls per cycle just for projects & type definitions. Implemented caching on both fetches and dropped it to <b>1 call per cycle</b> — massively reduced load on the customer's Rally instance and sped up syncs.</p></div><h3>► Side Quests Shipped</h3><ul><li>Intuitive Relationship Configuration in OIM (Feature 236592)</li><li>Archived Entity Link Support — Core + Jira (Feature 206780)</li><li>Enhanced user mapping in OIM4ADO (Enhancement 235197)</li><li>SDK <code>dynamicDataRetrieval</code> support (Feature 216937)</li><li>Time-impersonation for ADO / TFS (Bug 216902)</li><li>Rank & hierarchy for all entities in Jama (Enhancement 232713)</li></ul>"
+    },
+    "experience": {
+      "title": "JOB LOG",
+      "lvl": "LV 4 · CAREER",
+      "html": "<div class='role-card'><div class='top'><span>SOFTWARE ENGINEER</span><span class='when'>JUL 2023 — NOW</span></div><div class='where'>OpsHub, Inc. · Ahmedabad</div><p>Connector dev on the OIM (OpsHub Integration Manager) platform — syncing work items, test cases, and requirements across ALM / test management / issue tracking systems. Work spans new connector development, core platform improvements, SDK enhancements, automation framework, and customer-facing triage. Direct collaboration with PS, Product, and customers like Roche and Mastercard.</p><p><b>Manager:</b> Ashutosh Dharmik · <b>Department:</b> Engineering</p></div><div class='role-card'><div class='top'><span>TECH INTERN</span><span class='when'>MAR — JUN 2023</span></div><div class='where'>Salesken · Bengaluru</div><p>First professional engineering chapter — got my hands dirty on a real production codebase before joining OpsHub full-time.</p></div><h3>► Cross-Functional</h3><ul><li>Joined customer calls with PS / Product; delivered Tosca demos directly to customers</li><li>Provided a same-day hotfix in a DNG environment to unblock a customer call (Problem 202019)</li><li>Helped marketing configure Tosca integration for video/social demo recording</li><li>Frequently absorbed automation failures from teammates after own sprint work so they could stay focused</li></ul>"
+    },
+    "education": {
+      "title": "TRAINING LOG",
+      "lvl": "LV 5 · STUDIES",
+      "html": "<div class='role-card'><div class='top'><span>MASAI SCHOOL</span><span class='when'>MAY 2022 — FEB 2023</span></div><div class='where'>Bachelor's degree · Information Technology</div><p>Intensive full-stack engineering program — the bridge from undergrad into a real software career.</p></div><div class='role-card'><div class='top'><span>BHAKTA KAVI NARSINH MEHTA UNIV.</span><span class='when'>2017 — 2020</span></div><div class='where'>B.Sc.</div><p>Undergraduate degree. Foundation in fundamentals before specializing.</p></div>"
+    },
+    "achievements": {
+      "title": "TROPHY CASE",
+      "lvl": "LV 6 · GLORY",
+      "html": "<h3>► 🛡️ Defense-in-Depth Shipped</h3><p>Built and shipped a <b>two-layer privacy framework</b> for enterprise LLM use — 0 leaks across 4,062 replacements on a 74-file Java fixture, with masking under 20 ms. Defense-in-depth was an explicit design property, not an accident.</p><h3>► 🏆 Hackathon Bronze</h3><p>Took <b>3rd place</b> in OpsHub's internal hackathon (FY 2024–25) by solving a configuration issue with significant time-saving potential.</p><h3>► ⚡ Mastercard Sync ~6× Faster</h3><p>Bug 253757. Optimized DB query frequencies during triage — disproportionate customer impact from a targeted change.</p><h3>► ⚡ Rally API: 1,200 → 1</h3><p>Enhancement 199414. Caching for project & type-definition fetches dropped Mastercard's per-cycle API calls from ~1,200 down to <b>one</b>.</p><h3>► 🚑 Same-Day DNG Hotfix</h3><p>Problem 202019. Shipped a hotfix in the DNG environment in under a day to unblock a customer call.</p><h3>► 🌟 Flagship Tosca Delivery</h3><p>End-to-end ownership of the Tricentis Tosca connector for Roche — flagged by my manager as the standout delivery of the year.</p><h3>► 🧰 SDK Power-Up</h3><p>Extended <code>dynamicDataRetrieval</code> support to the SDK framework (Feature 216937) — leveled up tooling for every connector that came after.</p>"
+    },
+    "contact": {
+      "title": "WARP PIPE: CONTACT",
+      "lvl": "LV 7 · FINISH",
+      "html": "<h3>► Ready to team up?</h3><p>If you want to talk backend, connectors, or just say hi — these are the warp pipes that work.</p><div class='stat-row'><div class='stat'>📧<span>EMAIL</span></div><div class='stat'>💼<span>LINKEDIN</span></div><div class='stat'>🌐<span>PORTFOLIO</span></div><div class='stat'>📍<span>AHMEDABAD</span></div></div><h3>► Channels</h3><ul><li>Email: <a href='mailto:memahipat303@gmail.com'>memahipat303@gmail.com</a></li><li>Phone: +91 70698 29127</li><li>LinkedIn: <a href='https://www.linkedin.com/in/mahipatparmar-a10765213' target='_blank'>linkedin.com/in/mahipatparmar-a10765213</a></li><li>Portfolio: <a href='https://mahipat303.github.io/' target='_blank'>mahipat303.github.io</a></li></ul><h3>► Thanks for playing!</h3><p>You made it to the end of the level. Walk into the flagpole to clear the stage. ★</p>"
+    }
+  }
+  </script>
+
+  <script src="game.js"></script>
+</body>
 </html>
-
-<script src="/scripts/nav.js"></script>
-
-<script src="/swiper-bundle.min.js"></script>
-
-<script src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"></script>
-
-<script>
-  GitHubCalendar(".calendar", "mahipat303");
-  GitHubCalendar(".calendar", "mahipat303", { responsive: true });
-</script>
-
-<script src="/scripts/form.js"></script>
