@@ -408,31 +408,67 @@
 
   /* ---------- Mobile controls ---------- */
   .touch-controls {
-    position: absolute; bottom: 16px; left: 0; right: 0;
-    display: none; justify-content: space-between;
-    padding: 0 18px;
+    position: absolute; bottom: 18px; left: 0; right: 0;
+    display: none; justify-content: space-between; align-items: flex-end;
+    padding: 0 16px;
     z-index: 7;
     pointer-events: none;
   }
   .touch-controls .pad, .touch-controls .jump {
     pointer-events: auto;
-    display: flex; gap: 10px;
+    display: flex; gap: 12px;
   }
+  .touch-controls .pad { flex-direction: row; }
+  .touch-controls .jump { flex-direction: column-reverse; align-items: center; }
   .tbtn {
-    width: 56px; height: 56px;
-    background: rgba(27,27,46,0.65);
+    width: 68px; height: 68px;
+    background: rgba(27,27,46,0.7);
     color: #FFD93D;
     border: 3px solid #FFD93D;
     border-radius: 50%;
     font-family: 'Press Start 2P', monospace;
-    font-size: 16px;
+    font-size: 18px;
     user-select: none; -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.4);
   }
-  .tbtn:active { transform: scale(0.94); }
-  @media (hover: none) and (pointer: coarse) {
+  .tbtn.small { width: 46px; height: 46px; font-size: 11px; border-width: 2px; }
+  .tbtn.jump-btn {
+    width: 84px; height: 84px;
+    background: rgba(200,75,58,0.85);
+    border-color: #FFD93D;
+    color: #FFF8E7;
+  }
+  .tbtn:active { transform: scale(0.92); box-shadow: 0 2px 0 rgba(0,0,0,0.4); }
+  .touch-meta {
+    display: flex; gap: 8px; margin-bottom: 10px; justify-content: flex-end;
+  }
+  /* show touch controls on touch devices OR narrow viewports */
+  @media (hover: none) and (pointer: coarse), (max-width: 820px) {
     .touch-controls { display: flex; }
     .controls-hint { display: none; }
+    .hud { padding: 10px 12px; font-size: 9px; }
+    .hud-group { gap: 12px; }
+    .hud-val { font-size: 11px; }
+    .hud-label { font-size: 7px; }
+    .toast-stack { top: 64px; right: 12px; }
+    .toast { font-size: 8px; padding: 6px 10px; }
+  }
+  /* short / phone-landscape tweaks */
+  @media (max-width: 820px) {
+    .panel { max-height: 86vh; }
+    .panel-head { font-size: 11px; padding: 10px 12px; }
+    .panel-body { padding: 16px 18px; font-size: 17px; }
+    .panel-body h3 { font-size: 10px; }
+    .panel-foot { padding: 8px 12px; font-size: 8px; }
+    .panel-foot button { font-size: 11px; padding: 8px 14px; }
+    .panel-wrap { padding: 10px; }
+  }
+  @media (max-height: 480px) and (orientation: landscape) {
+    .tbtn { width: 56px; height: 56px; font-size: 14px; }
+    .tbtn.jump-btn { width: 68px; height: 68px; }
+    .touch-controls { bottom: 10px; padding: 0 12px; }
   }
 </style>
 </head>
@@ -485,12 +521,16 @@
     <!-- Touch controls -->
     <div class="touch-controls">
       <div class="pad">
-        <button class="tbtn" data-key="ArrowLeft">◀</button>
-        <button class="tbtn" data-key="ArrowRight">▶</button>
-        <button class="tbtn" data-key="ArrowDown">▼</button>
+        <button class="tbtn" data-key="ArrowLeft" aria-label="Move left">◀</button>
+        <button class="tbtn" data-key="ArrowRight" aria-label="Move right">▶</button>
+        <button class="tbtn" data-key="ArrowDown" aria-label="Enter pipe">▼</button>
       </div>
       <div class="jump">
-        <button class="tbtn" data-key=" ">A</button>
+        <div class="touch-meta">
+          <button class="tbtn small" data-action="pause" aria-label="Pause">II</button>
+          <button class="tbtn small" data-action="mute" aria-label="Mute">♪</button>
+        </div>
+        <button class="tbtn jump-btn" data-key=" " aria-label="Jump">JUMP</button>
       </div>
     </div>
 

@@ -80,6 +80,17 @@ window.addEventListener('keyup', (e) => {
 // touch
 document.querySelectorAll('.tbtn').forEach(btn => {
   const k = btn.dataset.key;
+  const action = btn.dataset.action;
+  if (action) {
+    const fire = (e) => {
+      e.preventDefault();
+      if (action === 'pause') togglePause();
+      else if (action === 'mute') toggleMute();
+    };
+    btn.addEventListener('touchstart', fire, {passive:false});
+    btn.addEventListener('click', fire);
+    return;
+  }
   const press = (e) => { e.preventDefault(); if (!keys[k]) justPressed[k] = true; keys[k] = true; if (state.scene === 'title') startGame(); };
   const release = (e) => { e.preventDefault(); keys[k] = false; };
   btn.addEventListener('touchstart', press, {passive:false});
