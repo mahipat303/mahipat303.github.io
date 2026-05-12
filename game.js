@@ -167,33 +167,40 @@ function makeSprite(data, palette) {
   return c;
 }
 
-// Hero — 14 wide × 18 tall
+// Hero — 14 wide × 18 tall — modeled on Mahipat (dark hair, beard,
+// mirrored shades, ear stud, blue/white striped polo).
 const HERO_PAL = {
   '#': COLORS.ink,
-  'b': '#5A3415', // cap brown
-  'B': '#3E2208', // cap shadow
-  's': '#F2C29A', // skin
-  'S': '#C99571', // skin shadow
-  't': '#27B5B5', // shirt teal
-  'T': '#178484', // shirt shadow
+  'h': '#1A1410', // hair dark
+  'H': '#3A2A1C', // hair highlight
+  's': '#D9A982', // skin warm
+  'S': '#A87850', // skin shadow
+  'r': '#1F1812', // beard
+  'g': '#8E96A0', // sunglass frame
+  'G': '#2A323E', // lens dark
+  'L': '#A8C8E8', // lens reflection
+  'k': '#D9D9D9', // earring stud
+  'w': '#F0F0E8', // polo white
+  'W': '#C9C9C2', // polo white shadow
+  't': '#2E5BA8', // polo blue stripe
+  'T': '#1B3F7A', // polo blue shadow
   'n': '#2A3A6B', // pants navy
   'N': '#1A2447', // pants shadow
   'c': '#3B2010', // shoes
-  'e': '#1B1B2E', // eye
 };
 const HERO_IDLE = [
-  '....######....',
-  '..##bbbbbb##..',
-  '.#bbBBbbbBb#..',
-  '.#bsssssssb#..',
-  '..#ss#sss#s#..',
-  '..#sseesees#..',
-  '...#ssssss#...',
-  '...##SSSS##...',
-  '..#tttttttt#..',
-  '.#tttTttTttt#.',
-  '.#tttTttTttt#.',
-  '.#tttttttttt#.',
+  '....hhhhhh....',
+  '..hhHHHHHHhh..',
+  '.hhHHHHHHHHhh.',
+  '.hssssssssshk.',
+  '..gggggggggg..',
+  '.#GLGGGGGGLG#.',
+  '..#ssssssss#..',
+  '..#rrrrrrrr#..',
+  '..#wwwwwwww#..',
+  '.#wttwwttwttw#',
+  '.#wttwwttwttw#',
+  '.#wwwwwwwwww#.',
   '..#tt####tt#..',
   '..#nnNnnNnn#..',
   '..#nnNnnNnn#..',
@@ -202,18 +209,18 @@ const HERO_IDLE = [
   '..##cc..cc##..',
 ];
 const HERO_WALK1 = [
-  '....######....',
-  '..##bbbbbb##..',
-  '.#bbBBbbbBb#..',
-  '.#bsssssssb#..',
-  '..#ss#sss#s#..',
-  '..#sseesees#..',
-  '...#ssssss#...',
-  '..##SSSSSS##..',
-  '.#tttttttttt#.',
-  '#ttTttttttTtt#',
-  '#ttTttttttTtt#',
-  '.#tttttttttt#.',
+  '....hhhhhh....',
+  '..hhHHHHHHhh..',
+  '.hhHHHHHHHHhh.',
+  '.hssssssssshk.',
+  '..gggggggggg..',
+  '.#GLGGGGGGLG#.',
+  '..#ssssssss#..',
+  '..#rrrrrrrr#..',
+  '.#wwwwwwwwww#.',
+  '#wwttwwttwttw#',
+  '#wwttwwttwttw#',
+  '.#wwwwwwwwww#.',
   '..#tt####tt#..',
   '..#nnNnnNnn#..',
   '..#nnNnnNn#...',
@@ -222,18 +229,18 @@ const HERO_WALK1 = [
   '.##cc...##cc##',
 ];
 const HERO_WALK2 = [
-  '....######....',
-  '..##bbbbbb##..',
-  '.#bbBBbbbBb#..',
-  '.#bsssssssb#..',
-  '..#ss#sss#s#..',
-  '..#sseesees#..',
-  '...#ssssss#...',
-  '..##SSSSSS##..',
-  '.#tttttttttt#.',
-  '#ttTttttttTtt#',
-  '#ttTttttttTtt#',
-  '.#tttttttttt#.',
+  '....hhhhhh....',
+  '..hhHHHHHHhh..',
+  '.hhHHHHHHHHhh.',
+  '.hssssssssshk.',
+  '..gggggggggg..',
+  '.#GLGGGGGGLG#.',
+  '..#ssssssss#..',
+  '..#rrrrrrrr#..',
+  '.#wwwwwwwwww#.',
+  '#wwttwwttwttw#',
+  '#wwttwwttwttw#',
+  '.#wwwwwwwwww#.',
   '..#tt####tt#..',
   '..#nnNnnNnn#..',
   '...#nnNnnNn#..',
@@ -242,18 +249,18 @@ const HERO_WALK2 = [
   '##cc##...cc##.',
 ];
 const HERO_JUMP = [
-  '....######....',
-  '..##bbbbbb##..',
-  '.#bbBBbbbBb#..',
-  '.#bsssssssb#..',
-  '..#ss#sss#s#..',
-  '..#sseesees#..',
-  '...#ssssss#...',
-  '..##SSSSSS##..',
-  '.#tttttttttt#.',
-  '#ttTttttttTtt#',
-  '#ttTttttttTtt#',
-  '.#tttttttttt#.',
+  '....hhhhhh....',
+  '..hhHHHHHHhh..',
+  '.hhHHHHHHHHhh.',
+  '.hssssssssshk.',
+  '..gggggggggg..',
+  '.#GLGGGGGGLG#.',
+  '..#ssssssss#..',
+  '..#rrrrrrrr#..',
+  '.#wwwwwwwwww#.',
+  '#wwttwwttwttw#',
+  '#wwttwwttwttw#',
+  '.#wwwwwwwwww#.',
   '..#tt####tt#..',
   '.##nnnnnnnn##.',
   '#nnNnnNnnNnnNn',
