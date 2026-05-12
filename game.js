@@ -145,7 +145,7 @@ function sfx(name) {
     case 'die': beep(220, 0.4, 'sawtooth', 0.06, -150); break;
   }
 }
-function toggleMute() { muted = !muted; toast(muted ? '🔇 MUTED' : '🔊 SOUND ON'); }
+function toggleMute() { muted = !muted; toast({type:'hype', text: muted ? '🔇 MUTED (rude but valid)' : '🔊 SOUND ON — brace yourself'}); }
 
 // ---------- Sprite renderer ----------
 // Pixel art via string arrays. '.' = transparent.
@@ -513,11 +513,47 @@ function buildLevel() {
   }
 
   // Coins — pure score / encouragement. Skills live in the Skill Tree panel.
+  // Each coin reveals a skill (or a sarcastic remark) at top-right.
+  // Type 'skill' = highlighted yellow card, 'snark' = grey italics, 'hype' = red exclamation.
   const coinToasts = [
-    '+100','+100','+100','NICE!','+100','+100','COMBO!','+100',
-    '+100','+100','GREAT!','+100','+100','+100','+100','SWEET!',
-    '+100','+100','+100','SUPER!','+100','+100','+100','+100',
-    '+100','+100','EXCELLENT!','+100','+100',
+    {type:'skill', text:'+ JAVA'},
+    {type:'skill', text:'+ SPRING BOOT'},
+    {type:'snark', text:'yes, more Java'},
+    {type:'skill', text:'+ PYTHON'},
+    {type:'skill', text:'+ AWS'},
+    {type:'hype',  text:'COMBO!'},
+    {type:'skill', text:'+ JAVASCRIPT'},
+    {type:'snark', text:'briefly tolerated CSS'},
+    {type:'skill', text:'+ HTML / CSS'},
+    {type:'skill', text:'+ MCP (Model Context Protocol)'},
+    {type:'hype',  text:'NICE!'},
+    {type:'skill', text:'+ mitmproxy'},
+    {type:'skill', text:'+ SQLite vault design'},
+    {type:'snark', text:'because regex never fails, right?'},
+    {type:'skill', text:'+ Regex masking'},
+    {type:'skill', text:'+ Pseudonymization'},
+    {type:'hype',  text:'SWEET!'},
+    {type:'skill', text:'+ Defense-in-depth'},
+    {type:'skill', text:'+ Connector design'},
+    {type:'snark', text:'enterprise-grade™'},
+    {type:'skill', text:'+ Entity modeling'},
+    {type:'skill', text:'+ Performance tuning'},
+    {type:'hype',  text:'SUPER!'},
+    {type:'skill', text:'+ DB query optimization'},
+    {type:'skill', text:'+ API caching'},
+    {type:'snark', text:'1200 → 1 — math still checks out'},
+    {type:'skill', text:'+ SDK extension'},
+    {type:'skill', text:'+ Triage rotation survivor'},
+    {type:'hype',  text:'EXCELLENT!'},
+    {type:'skill', text:'+ System design'},
+    {type:'skill', text:'+ Customer demos'},
+    {type:'snark', text:'somehow also a public speaker'},
+    {type:'skill', text:'+ Code review'},
+    {type:'skill', text:'+ Git / GitHub'},
+    {type:'hype',  text:'STILL GOING?'},
+    {type:'skill', text:'+ Pytest'},
+    {type:'skill', text:'+ Reading other people\'s code'},
+    {type:'snark', text:'OK fine, you win — talk to me already'},
   ];
   const coinPositions = [
     {x:8,y:10},{x:9,y:10},{x:10,y:10},
@@ -716,7 +752,7 @@ function checkFlag(p) {
     document.getElementById('win').classList.add('show');
     const totalSecs = state.level.qBlocks.filter(q => q.hit).length;
     document.getElementById('win-stats').innerHTML =
-      `★ <b>${state.coinsTaken}/${state.coinsTotal}</b> coins collected · <b>${totalSecs}/7</b> sections discovered · <b>${state.score}</b> points<br><br>Thanks for playing through my portfolio. Now let's make something together.`;
+      `★ <b>${state.coinsTaken}/${state.coinsTotal}</b> coins · <b>${totalSecs}/7</b> sections · <b>${state.score}</b> points<br><br>congrats — you spent more time on a portfolio than most recruiters spend on a CV. that means something. probably. <br>let's build something together.`;
   }
 }
 
@@ -846,9 +882,10 @@ function die() {
     state.coinsTotal = state.level.coins.length;
     document.getElementById('coins-total').textContent = String(state.coinsTotal).padStart(2,'0');
     updateLivesHUD();
-    toast('GAME OVER — RESPAWN');
+    toast({type:'hype', text:'GAME OVER — please clap'});
+    setTimeout(() => toast({type:'snark', text:'respawning... try not to die immediately this time'}), 700);
   } else {
-    toast('OUCH! −1 LIFE');
+    toast({type:'snark', text:'ouch. that pit was clearly visible.'});
   }
   state.player = initPlayer();
   state.camX = 0;
@@ -1059,15 +1096,17 @@ document.getElementById('restart').addEventListener('click', () => {
 });
 
 // ---------- Toasts ----------
-function toast(text) {
+function toast(msg) {
   const stack = document.getElementById('toasts');
   const t = document.createElement('div');
-  t.className = 'toast';
+  let type = 'plain', text = msg;
+  if (msg && typeof msg === 'object') { type = msg.type || 'plain'; text = msg.text; }
+  t.className = 'toast toast-' + type;
   t.textContent = text;
   stack.appendChild(t);
   setTimeout(() => t.remove(), 2700);
-  // cap toasts
-  while (stack.children.length > 4) stack.removeChild(stack.firstChild);
+  // cap toasts so screen doesn't fill up
+  while (stack.children.length > 3) stack.removeChild(stack.firstChild);
 }
 
 // ---------- Start ----------
@@ -1087,8 +1126,9 @@ function startGame(reset = false) {
     updateLivesHUD();
   }
   state.scene = 'play';
-  setTimeout(() => toast('JUMP TO HIT [?] BLOCKS'), 600);
-  setTimeout(() => toast('REACH THE ★ FLAG TO WIN'), 2400);
+  setTimeout(() => toast({type:'hype', text:'bump [?] blocks — they\'re informative AND judgmental'}), 600);
+  setTimeout(() => toast({type:'skill', text:'collect coins to unlock skills (yes really)'}), 2400);
+  setTimeout(() => toast({type:'snark', text:'or just walk straight to the flag. no one\'s watching.'}), 4400);
 }
 
 // ---------- Boot ----------
