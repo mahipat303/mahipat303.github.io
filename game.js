@@ -50,15 +50,23 @@ ctx.imageSmoothingEnabled = false;
 function fitCanvas() {
   const stage = document.getElementById('stage');
   const sw = stage.clientWidth, sh = stage.clientHeight;
-  const scale = Math.min(sw / VW, sh / VH);
+  // On narrow portrait viewports, "cover" the screen so there are no big sky bands.
+  // Reserve ~120px at the bottom for touch controls so the player isn't hidden under them.
+  const isPortraitMobile = sw < 820 && sh > sw;
+  const reservedBottom = isPortraitMobile ? 120 : 0;
+  const usableH = Math.max(sh - reservedBottom, 200);
+  const scale = isPortraitMobile
+    ? Math.max(sw / VW, usableH / VH)   // cover
+    : Math.min(sw / VW, sh / VH);        // contain
   const w = Math.floor(VW * scale), h = Math.floor(VH * scale);
   canvas.style.width = w + 'px';
   canvas.style.height = h + 'px';
-  canvas.style.left = ((sw - w) / 2) + 'px';
-  canvas.style.top = ((sh - h) / 2) + 'px';
+  canvas.style.left = Math.floor((sw - w) / 2) + 'px';
+  canvas.style.top = Math.floor(((isPortraitMobile ? usableH : sh) - h) / 2) + 'px';
   canvas.style.position = 'absolute';
 }
 window.addEventListener('resize', fitCanvas);
+window.addEventListener('orientationchange', () => setTimeout(fitCanvas, 50));
 
 // ---------- Input ----------
 const keys = {};
