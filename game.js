@@ -274,11 +274,25 @@ const heroWalk1 = makeSprite(HERO_WALK1, HERO_PAL);
 const heroWalk2 = makeSprite(HERO_WALK2, HERO_PAL);
 const heroJump = makeSprite(HERO_JUMP, HERO_PAL);
 
-// Real face overlay — drawn on top of the pixel head
-const faceImg = new Image();
-let faceReady = false;
-faceImg.onload = () => { faceReady = true; };
-faceImg.src = 'face.png';
+// Real face overlay — rendered as a DOM <img> over the canvas so it
+// bypasses the canvas's `image-rendering: pixelated` and stays crisp.
+const faceOverlay = document.getElementById('face-overlay');
+function updateFaceOverlay(px, py, facing, visible) {
+  if (!faceOverlay) return;
+  if (!visible) { faceOverlay.classList.remove('show'); return; }
+  const canvasRect = canvas.getBoundingClientRect();
+  const stageRect = document.getElementById('stage').getBoundingClientRect();
+  const scale = canvasRect.width / VW;
+  const headW = 12, headH = 10, ox = 1, oy = -1;
+  const screenX = (canvasRect.left - stageRect.left) + (px + ox) * scale;
+  const screenY = (canvasRect.top - stageRect.top) + (py + oy) * scale;
+  faceOverlay.style.left = screenX + 'px';
+  faceOverlay.style.top = screenY + 'px';
+  faceOverlay.style.width = (headW * scale) + 'px';
+  faceOverlay.style.height = (headH * scale) + 'px';
+  faceOverlay.style.transform = facing < 0 ? 'scaleX(-1)' : 'scaleX(1)';
+  faceOverlay.classList.add('show');
+}
 
 // Coin — 10 wide × 12 tall
 const COIN_PAL = {
@@ -1055,11 +1069,8 @@ function render() {
     ctx.translate(px, py);
   }
   ctx.drawImage(sprite, 0, 0);
-  if (faceReady) {
-    // overlay the real face over the pixel head (rows ~0..7 of the 14x18 sprite)
-    ctx.drawImage(faceImg, 1, 0, 12, 9);
-  }
   ctx.restore();
+  updateFaceOverlay(px, py, p.facing, state.scene === 'play' || state.scene === 'paused');
 
   // ground front-edge line (visual flourish)
   ctx.fillStyle = COLORS.ink;
